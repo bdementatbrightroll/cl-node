@@ -17,7 +17,9 @@ var count = 0;
 app.get("/cannes/meal-period", function(request, response) {
 	
 	var now = new time.Date();
-	var location = "France/Cannes";
+	console.log("Server location: " + now.getTimezone());
+
+	var location = "CET";
 	now.setTimezone(location);
 	var hour = now.getHours();
 	var period = 'breakfast';
