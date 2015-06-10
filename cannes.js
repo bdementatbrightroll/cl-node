@@ -4,6 +4,7 @@ var express	= require('express');
 var app 	= express();
 var bodyParser = require('body-parser');
 app.use( bodyParser.json() );
+var time 	= require('time');
 
 var redis	= require('redis');
 var rclient	= redis.createClient();
@@ -12,6 +13,30 @@ const ORDERS = 'orders';
 const PORT = 1337;
 
 var count = 0;
+
+app.get("/cannes/meal-period", function(request, response) {
+	
+	var now = new time.Date();
+	var location = "France/Cannes";
+	now.setTimezone(location);
+	var hour = now.getHours();
+	var period = 'breakfast';
+
+	if (1 > hour) {
+		period = 'evening';
+	} else if (1 < hour && hour < 12) {
+		period = 'breakfast';
+	} else if (12 <= hour && hour < 14) {
+		period = 'lunch';
+	} else if (14 <= hour && hour < 22) {
+		period = 'happy-hour';
+	} else if (22 <= hour) {
+		period = 'evening';
+	}
+
+	console.log("Hour in " + location + "=" + hour + " (" + period + ")");
+	response.status(200).send(period);
+});
 
 app.get("/cannes/delete/:id", function(request, response) {
 	var id = request.params.id;
