@@ -32,6 +32,10 @@ app.get("/cannes/delete/:id", function(request, response) {
 	});
 });
 
+app.get("/cannes/menu.xml", function(request, response) {
+	response.status(200).sendFile(__dirname + '/menu.xml');
+});
+
 app.get("/cannes/orders", function(request, response) {
 	console.log('/cannes/orders');
 	rclient.hgetall(ORDERS, function(error, result)

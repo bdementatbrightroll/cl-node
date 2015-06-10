@@ -1,0 +1,22 @@
+<menu>
+	<breakfast>
+		<caffeinated>coffee,tea</caffeinated>
+		<natural>mineral-water,apple-juice,orange-juice,grapefruit-juice</natural>
+	</breakfast>
+	<lunch>
+		<alcoholic>red-wine,rose-wine,white-wine,beer</alcoholic>
+		<caffeinated>coca-cola,diet-coke,sprite</caffeinated>
+		<natural>mineral-water</natural>
+	</lunch>
+	<happy-hour>
+		<caffeinated>coffee,tea</caffeinated>
+		<natural>mineral-water,apple-juice,orange-juice,grapefruit-juice</natural>
+		<alcoholic>red-wine,rose-wine,white-wine,beer</alcoholic>
+		<caffeinated>coca-cola,diet-coke,sprite</caffeinated>
+	</happy-hour>
+	<evening>
+		<natural>mineral-water,apple-juice,orange-juice,grapefruit-juice</natural>
+		<caffeinated>coca-cola,diet-coke,sprite</caffeinated>
+		<alcoholic>red-wine,rose-wine,white-wine,beer,prosecco</alcoholic>
+	</evening>
+</menu>
