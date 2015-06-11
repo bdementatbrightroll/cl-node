@@ -1,22 +1,6 @@
 <menu>
-	<breakfast>
-		<caffeinated>coffee,tea</caffeinated>
-		<natural>mineral-water,apple-juice,orange-juice,grapefruit-juice</natural>
-	</breakfast>
-	<lunch>
-		<alcoholic>red-wine,rose-wine,white-wine,beer</alcoholic>
-		<caffeinated>coca-cola,diet-coke,sprite</caffeinated>
-		<natural>mineral-water</natural>
-	</lunch>
-	<happy-hour>
-		<caffeinated>coffee,tea</caffeinated>
-		<natural>mineral-water,apple-juice,orange-juice,grapefruit-juice</natural>
-		<alcoholic>red-wine,rose-wine,white-wine,beer</alcoholic>
-		<caffeinated>coca-cola,diet-coke,sprite</caffeinated>
-	</happy-hour>
-	<evening>
-		<natural>mineral-water,apple-juice,orange-juice,grapefruit-juice</natural>
-		<caffeinated>coca-cola,diet-coke,sprite</caffeinated>
-		<alcoholic>red-wine,rose-wine,white-wine,beer,prosecco</alcoholic>
-	</evening>
+	<breakfast>coffee,tea,mineral-water,apple-juice,orange-juice,grapefruit-juice</breakfast>
+	<lunch>red-wine,rose-wine,white-wine,beer,coca-cola,diet-coke,sprite,mineral-water</lunch>
+	<happy-hour>coffee,teamineral-water,apple-juice,orange-juice,grapefruit-juice,red-wine,rose-wine,white-wine,beer,coca-cola,diet-coke,sprite</happy-hour>
+	<evening>mineral-water,apple-juice,orange-juice,grapefruit-juice,coca-cola,diet-coke,sprite,red-wine,rose-wine,white-wine,beer,prosecco</evening>
 </menu>
