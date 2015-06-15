@@ -1,6 +1,6 @@
 <menu>
 	<breakfast>coffee,tea,mineral-water,apple-juice,orange-juice,grapefruit-juice</breakfast>
 	<lunch>red-wine,rose-wine,white-wine,beer,coca-cola,diet-coke,sprite,mineral-water</lunch>
-	<happy-hour>coffee,teamineral-water,apple-juice,orange-juice,grapefruit-juice,red-wine,rose-wine,white-wine,beer,coca-cola,diet-coke,sprite</happy-hour>
+	<happy-hour>coffee,tea,mineral-water,apple-juice,orange-juice,grapefruit-juice,red-wine,rose-wine,white-wine,beer,coca-cola,diet-coke,sprite</happy-hour>
 	<evening>mineral-water,apple-juice,orange-juice,grapefruit-juice,coca-cola,diet-coke,sprite,red-wine,rose-wine,white-wine,beer,prosecco</evening>
 </menu>
