@@ -1,6 +1,7 @@
 uploads
 .DS_Store
 dump.rdb
+nohup.out
 
 # Logs
 logs

@@ -3,53 +3,54 @@ require('newrelic');
 var util 	= require('util')
 var path	= require('path')
 var express	= require('express')
-var app 	= express()
-var bodyParser = require('body-parser')
-app.use( bodyParser.json() )
 var time 	= require('time')
 var fs 		= require('fs')
-var multiparty 	= require('multiparty')
-var form = new multiparty.Form()
+var os 		= require('os');
+var Busboy 	= require('busboy');
 
 var redis	= require('redis')
 var rclient	= redis.createClient()
 
+var app 	= express()
+var bodyParser = require('body-parser')
+	app.use(bodyParser.json())
+
 const POPULARITY = 'popularity'
 const ORDERS = 'orders'
+const PHOTOS = 'photos'
 const PORT = 1337
 
 var count = 0
 
-app.post("/cannes/photobooth", function(request, response) {
-	// console.log("/cannes/photobooth " + util.inspect(request))
-	console.log("content-type " + request.headers['content-type'])
-
-	form.on('field', function(name, value) {
-		console.log('field: ' + name + "=" + value)
-	})
-
-	form.on('error', function(error) {
-		console.log('error ' + error)
-	})
-
-	form.on('file', function(name, file){
-		console.log("file: " + JSON.stringify(file))
-		var filename = path.parse(file.path).name + path.parse(file.path).ext
-		fs.renameSync(file.path, __dirname + '/uploads/' + filename)
-	})
-
-    form.on('close', function() {
-    	// console.log('close')
-    	response.status(200).send('')
-    })
-
-    try {
-    	form.parse(request);	
-    } catch (e) {
-    	console.log("PARSE ERROR " + e);
-    	// console.log(util.inspect(e));
-    }
+app.get("/cannes/photos", function(req, res) {
+	rclient.hgetall(PHOTOS, function(error, result) {
+		res.status(200).type('application/json').send(result);
+	});
 })
+
+app.post("/cannes/photobooth", function(req, res) {
+	console.log("/cannes/photobooth")
+	var busboy = new Busboy({ headers: req.headers })
+	var id = new Date().getTime()
+
+	busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
+		if(fieldname == "email") {
+			rclient.hset(PHOTOS, id, val)	
+		}  	
+    });
+
+	busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+		var saveTo = path.join(__dirname, "uploads", String(id) + ".png");
+		file.pipe(fs.createWriteStream(saveTo));
+    });
+
+    busboy.on('finish', function() {
+      res.writeHead(200, { 'Connection': 'close' });
+      res.end("That's all folks!");
+    });
+
+    return req.pipe(busboy);
+});
 
 app.get("/cannes/meal-period", function(request, response) {
 	var now = new time.Date();
@@ -128,6 +129,7 @@ app.get("/cannes/order-queue", function(request, response) {
 
 app.post("/cannes/order", function(request, response) {
 	var order = request.body;
+	console.log("/cannes/order " + JSON.stringify(order))
 	order.id = count++;
 	
 	for (var type in request.body) {
