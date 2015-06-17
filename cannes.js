@@ -22,6 +22,11 @@ const PORT = 1337
 
 var count = 0
 
+app.get("/crossdomain.xml", function(req, res) {
+	res.status(200).sendFile(__dirname + '/crossdomain.xml');
+	return;
+});
+
 app.get("/cannes/photos", function(req, res) {
 	rclient.hgetall(PHOTOS, function(error, result) {
 		res.status(200).type('application/json').send(result);
