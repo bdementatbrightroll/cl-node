@@ -32,10 +32,11 @@ app.post("/cannes/photobooth", function(req, res) {
 	console.log("/cannes/photobooth")
 	var busboy = new Busboy({ headers: req.headers })
 	var id = new Date().getTime()
+	var email;
 
 	busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
 		if(fieldname == "email") {
-			rclient.hset(PHOTOS, id, val)	
+			email = val;
 		}  	
     });
 
@@ -45,8 +46,9 @@ app.post("/cannes/photobooth", function(req, res) {
     });
 
     busboy.on('finish', function() {
-      res.writeHead(200, { 'Connection': 'close' });
-      res.end("That's all folks!");
+    	rclient.hset(PHOTOS, id, email)
+		res.writeHead(200, { 'Connection': 'close' })
+		res.end("That's all folks!")
     });
 
     return req.pipe(busboy);
