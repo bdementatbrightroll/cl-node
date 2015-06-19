@@ -27,6 +27,20 @@ app.get("/crossdomain.xml", function(req, res) {
 	return;
 });
 
+app.get("/cannes/view-photos", function(req, res) {
+	var content = ["<html><body>"];
+	rclient.hgetall(PHOTOS, function(error, result) {
+		for (var id in result) {
+			content.push("<p>");
+			content.push("email: " + result[id] + "<br>");
+			content.push('photo: <img src="http://localhost/cannes/uploads/' + id + '.png" /><br />')
+			content.push("<p><br /><br />");
+		}
+		content.push("</body></html>");
+		res.status(200).type('text/html').send(content.join("\n"));
+	});
+});
+
 app.get("/cannes/photos", function(req, res) {
 	rclient.hgetall(PHOTOS, function(error, result) {
 		res.status(200).type('application/json').send(result);
